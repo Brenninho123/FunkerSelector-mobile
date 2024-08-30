@@ -28,6 +28,9 @@ import funkin.save.Save;
 import haxe.Json;
 import haxe.Exception;
 import Std;
+#if mobile
+import funkin.mobile.util.TouchUtil;
+#end
 
 /**
  * Module that handles the Character Select button in
@@ -98,7 +101,7 @@ class CharacterHandler extends Module {
 			}
 			// Open the CharacterMenu substate.
 			// We need to make a new one everytime since it gets destroyed when it's closed.
-			if (FlxG.keys.justPressed.G && charText.visible) {
+			 if (controls.PAUSE #if mobile || TouchUtil.justPressed #end)
 				var charSelect:FlxSubState = ScriptedMusicBeatSubState.init("CharacterSelectSubState");
 				charSelect.camera = FlxG.state.subState.funnyCam;
 				FlxG.state.subState.persistentUpdate = false;
